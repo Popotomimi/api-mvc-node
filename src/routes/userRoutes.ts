@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.post("/", UserController.create);
-router.get("/", UserController.list);
-router.put("/:id", UserController.update);
-router.delete("/:id", UserController.delete);
+router.post("/", UserController.register);
+router.post("/login", UserController.login);
+router.get("/", UserController.list); // add middleware here
+router.put("/:id", UserController.update); // add middleware here
+router.delete("/:id", UserController.delete); // add middleware here
 
 /**
  * @swagger
@@ -29,6 +31,50 @@ router.delete("/:id", UserController.delete);
  *     responses:
  *       200:
  *         description: Lista de usuários
+ *
+ * /users/login:
+ *   post:
+ *     summary: Realiza login de um usuário
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: roberto@email.com
+ *               password:
+ *                 type: string
+ *                 example: 123456
+ *     responses:
+ *       200:
+ *         description: Login realizado com sucesso, retorna token JWT
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 token:
+ *                   type: string
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
  *
  * /users/{id}:
  *   put:
