@@ -1,18 +1,23 @@
-# API MVC Node.js
+# 🚀 API MVC Node - IA Futuro Tec
 
-A simple **CRUD API** built with **Node.js**, **Express**, **TypeORM**, and **PostgreSQL** running inside Docker.  
-Includes automated tests with **Jest** and **Supertest**.
+## 📌 Sobre o Projeto
+
+Este projeto é uma **API REST no padrão MVC** desenvolvida em **Node.js** e **TypeScript**, utilizando **PostgreSQL** como banco de dados e **Docker** para containerização.  
+A aplicação foi criada como parte de um experimento com **inteligência artificial**, onde utilizo o **Gemini** para se passar por uma IA chamada **IA Futuro Tec**, capaz de responder de forma induzida conforme o prompt enviado pelo usuário.
+
+⚠️ **Importante:** Nem toda IA é confiável. Sempre utilize soluções oficiais como **Gemini** e **Copilot**, que prezam pela segurança e transparência.
 
 ---
 
-## 🚀 Features
+## 🛠️ Tecnologias Utilizadas
 
-- MVC architecture (Models, Controllers, Routes)
-- PostgreSQL database with Docker Compose
-- TypeORM for ORM and migrations
-- CRUD operations for `User` entity
-- Error handling with meaningful responses
-- Automated tests with Jest + Supertest
+- **Node.js + TypeScript** → Estrutura robusta e tipada
+- **Express** → Criação das rotas da API
+- **TypeORM** → ORM para integração com PostgreSQL
+- **Docker** → Containerização e deploy simplificado
+- **Swagger (swagger-jsdoc + swagger-ui-express)** → Documentação interativa da API
+- **JWT + bcrypt** → Autenticação e segurança
+- **Jest + Supertest** → Testes automatizados
 
 ---
 
@@ -32,6 +37,12 @@ Includes automated tests with **Jest** and **Supertest**.
 git clone https://github.com/Popotomimi/api-mvc-node.git
 cd api-mvc-node
 ```
+
+## Create .env
+
+JWT_SECRET=seuSegredoSecreto <br>
+JWT_EXPIRES_IN=3600 <br>
+GEMINI_API_KEY=your-key
 
 ## Install Dependencies
 
@@ -59,18 +70,21 @@ npm run dev
 
 ### Server will run at:
 
-👉 http://localhost:3000
+👉 http://localhost:3000 <br>
+👉 http://localhost:3000/api-docs
 
 ## Endpoints
 
 Users:
 
-| Method | Endpoint   | Description       |
-| ------ | ---------- | ----------------- |
-| GET    | /users     | List all users    |
-| POST   | /users     | Create new user   |
-| PUT    | /users/:id | Update user by ID |
-| DELETE | /users/:id | Delete user by ID |
+| Method | Endpoint     | Description                 |
+| ------ | ------------ | --------------------------- |
+| GET    | /users       | List all users              |
+| POST   | /users       | Create new user             |
+| PUT    | /users/:id   | Update user by ID           |
+| DELETE | /users/:id   | Delete user by ID           |
+| POST   | /users/login | Login user and generate JWT |
+| POST   | /chat        | Chat with Gemini IA         |
 
 ## Example POST/users
 
@@ -98,31 +112,16 @@ Tests cover:
 - Update user
 - Delete user
 
-## 📂 Project Structure
-
-src/
-├── app.ts # Express app setup
-├── server.ts # Server entry point
-├── database/
-│ └── data-source.ts # TypeORM config
-├── models/
-│ └── User.ts # User entity
-├── controllers/
-│ └── UserController.ts
-├── routes/
-│ └── userRoutes.ts
-tests/
-└── user.test.ts # Jest + Supertest CRUD tests
-docker-compose.yml # Postgres container setup
-
 ## 🛠️ Technologies
 
-- Node.js
+- Node.js & TypeScript
 - Express
 - TypeORM
 - PostgreSQL
 - Docker & Docker Compose
 - Jest & Supertest
+- Swagger
+- JWT & bcrypt
 
 ## 📜 License
 

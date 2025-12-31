@@ -6,12 +6,16 @@ const router = Router();
 
 router.post("/", UserController.register);
 router.post("/login", UserController.login);
-router.get("/", UserController.list); // add middleware here
-router.put("/:id", UserController.update); // add middleware here
-router.delete("/:id", UserController.delete); // add middleware here
+router.get("/", authMiddleware, UserController.list);
+router.put("/:id", authMiddleware, UserController.update);
+router.delete("/:id", authMiddleware, UserController.delete);
 
 /**
  * @swagger
+ * tags:
+ *   name: Users
+ *   description: Operações relacionadas a usuários
+ *
  * /users:
  *   post:
  *     summary: Cria um novo usuário
@@ -28,6 +32,8 @@ router.delete("/:id", UserController.delete); // add middleware here
  *   get:
  *     summary: Lista todos os usuários
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Lista de usuários
@@ -80,18 +86,28 @@ router.delete("/:id", UserController.delete); // add middleware here
  *   put:
  *     summary: Atualiza um usuário pelo ID
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: Usuário atualizado
  *   delete:
  *     summary: Remove um usuário pelo ID
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -101,11 +117,13 @@ router.delete("/:id", UserController.delete); // add middleware here
  *     responses:
  *       200:
  *         description: Usuário removido
- */
-
-/**
- * @swagger
+ *
  * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  *   schemas:
  *     User:
  *       type: object
