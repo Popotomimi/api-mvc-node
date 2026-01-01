@@ -83,6 +83,8 @@ export class UserController {
 
   static async list(req: Request, res: Response) {
     try {
+      if (req.body) {
+      }
       const users = await userRepo.find();
       return res.json(users);
     } catch {

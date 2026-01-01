@@ -12,16 +12,18 @@ export function authMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): void {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ message: "Token not provided" });
+    res.status(401).json({ message: "Token not provided" });
+    return;
   }
 
   const parts = authHeader.split(" ");
   if (parts.length !== 2 || !parts[1]) {
-    return res.status(401).json({ message: "Token format invalid" });
+    res.status(401).json({ message: "Token format invalid" });
+    return;
   }
 
   const token = parts[1];
@@ -34,6 +36,7 @@ export function authMiddleware(
     (req as any).user = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid or expired token" });
+    res.status(401).json({ message: "Invalid or expired token" });
+    return;
   }
 }
